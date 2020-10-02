@@ -44,7 +44,7 @@ namespace NLweek04
                 xlSheet = xlWB.ActiveSheet;
 
                 
-                //CreateTable(); // Ennek megírása a következő feladatrészben következik
+                CreateTable(); 
 
                 
                 xlApp.Visible = true;
@@ -60,6 +60,36 @@ namespace NLweek04
                 xlApp.Quit();
                 xlWB = null;
                 xlApp = null;
+            }
+        }
+
+        private void CreateTable()
+        {
+            string[] headers = new string[] {
+                     "Kód",
+                     "Eladó",
+                     "Oldal",
+                     "Kerület",
+                     "Lift",
+                     "Szobák száma",
+                     "Alapterület (m2)",
+                     "Ár (mFt)",
+                     "Négyzetméter ár (Ft/m2)"};
+
+            for (int i = 0; i < headers.Length; i++)
+            {
+                xlSheet.Cells[1, i+1] = headers[0];
+            }
+
+            object[,] values = new object[Flats.Count, headers.Length];
+
+            int counter = 0;
+            foreach (Flat f in Flats)
+            {
+                values[counter, 0] = f.Code;
+                
+                values[counter, 8] = "";
+                counter++;
             }
         }
 
