@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Gyakorlat05.Entities
 {
-    class PortfoliaItem
+        public class PortfoliaItem
     {
         public string Index { get; set; }
-        public decimal Volumen { get; set; }
+        public decimal Volume { get; set; }
     }
 }
