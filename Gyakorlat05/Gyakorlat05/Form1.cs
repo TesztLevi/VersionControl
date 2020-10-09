@@ -112,6 +112,7 @@ namespace Gyakorlat05
                     sw.Write(s.Volume);
 
                     sw.WriteLine();
+                    //Valami
                 }
             }
         }
