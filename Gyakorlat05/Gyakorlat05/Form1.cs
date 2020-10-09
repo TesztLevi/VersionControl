@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,8 @@ namespace Gyakorlat05
 
         PortfolioEntities context = new PortfolioEntities();
 
-       
+        List<Tick> Ticks;
+
 
 
         List<PortfoliaItem> Portfolio = new List<PortfoliaItem>();
@@ -28,7 +30,7 @@ namespace Gyakorlat05
         {
             InitializeComponent();
 
-            List<Tick> Ticks = context.Ticks.ToList();
+            Ticks = context.Ticks.ToList();
 
             dataGridView1.DataSource = Ticks;
             
@@ -90,6 +92,30 @@ namespace Gyakorlat05
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+            using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
+            {
+                sw.Write("időszak");
+                sw.Write(";");
+                sw.Write("Nyereség");
+                sw.WriteLine();
+                foreach (var s in Portfolio)
+                {
+
+                    
+                    
+                    sw.Write(s.Index);
+                    sw.Write(";");
+                    sw.Write(s.Volume);
+
+                    sw.WriteLine();
+                }
+            }
         }
     }
 }
