@@ -104,12 +104,10 @@ namespace Gyakorlat05
                 sw.Write(";");
                 sw.Write("Nyereség");
                 sw.WriteLine();
-                foreach (var s in Portfolio)
-                {
 
-                    
-                    
-                    sw.Write(s.Index);
+                foreach (var s in Ticks)
+                { 
+                    sw.Write(s.TradingDay);
                     sw.Write(";");
                     sw.Write(s.Volume);
 
