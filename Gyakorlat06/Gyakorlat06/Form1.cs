@@ -22,16 +22,26 @@ namespace Gyakorlat06
         public Form1()
         {
             InitializeComponent();
+
+            BindingList<String> Currencies = new BindingList<string>();
+            //comboBox1.DataSource = Currencies;
+
+            
+
+
+
+
+
+
             RefreData();
 
 
-           
+            
 
 
 
 
             
-
         }
 
         private void RefreData()
