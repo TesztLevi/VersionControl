@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml;
 using Gyakorlat06.Entities;
 using Gyakorlat06.MnbServiceReference;
@@ -62,9 +63,30 @@ namespace Gyakorlat06
                     rate.Value = value / unit;
             }
 
+
+            Dia();
+
         }
 
-       
+        private void Dia()
+        {
+            chart1.DataSource = Rates;
+
+            var series = chart1.Series[0];
+
+            series.ChartType = SeriesChartType.Line;
+            series.XValueMember = "Date";
+            series.YValueMembers = "Value";
+            series.BorderWidth = 2;
+
+            var legend = chart1.Legends[0];
+            legend.Enabled = false;
+
+            var chartArea = chart1.ChartAreas[0];
+            chartArea.AxisX.MajorGrid.Enabled = false;
+            chartArea.AxisY.MajorGrid.Enabled = false;
+            chartArea.AxisY.IsStartedFromZero = false;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
