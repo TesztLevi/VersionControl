@@ -22,37 +22,55 @@ namespace Gyakorlat06
         public Form1()
         {
             InitializeComponent();
+            RefreData();
 
-            dataGridView1.DataSource = Rates;
+
+           
+
+
+
 
             
 
+        }
 
-            var mnbService = new MNBArfolyamServiceSoapClient();
+        private void RefreData()
+        {
+            Rates.Clear();
+            dataGridView1.DataSource = Rates;
 
-            var request = new GetExchangeRatesRequestBody()
+            Dia();
+            String Result()
             {
-                currencyNames = "EUR",
-                startDate = "2020-01-01",
-                endDate = "2020-06-30"
-            };
+                var mnbService = new MNBArfolyamServiceSoapClient();
 
-            var response = mnbService.GetExchangeRates(request);
+                var request = new GetExchangeRatesRequestBody()
+                {
+                    currencyNames = comboBox1.SelectedItem.ToString(),
+                    startDate = Pick1.Value.ToString(),
+                    endDate = Pick2.Value.ToString()
+                };
 
-            var result = response.GetExchangeRatesResult;
+                var response = mnbService.GetExchangeRates(request);
 
-            //MessageBox.Show(result);
+                var result = response.GetExchangeRatesResult;
+
+                return result;
+            }
+
+
+
 
             var xml = new XmlDocument();
 
-            xml.LoadXml(result);
+            xml.LoadXml(Result());
 
             foreach (XmlElement element in xml.DocumentElement)
             {
                 var rate = new RateDate();
                 Rates.Add(rate);
 
-                rate.Date= DateTime.Parse(element.GetAttribute("date"));
+                rate.Date = DateTime.Parse(element.GetAttribute("date"));
 
                 var childElement = (XmlElement)element.ChildNodes[0];
                 rate.Currency = childElement.GetAttribute("curr");
@@ -62,10 +80,6 @@ namespace Gyakorlat06
                 if (unit != 0)
                     rate.Value = value / unit;
             }
-
-
-            Dia();
-
         }
 
         private void Dia()
@@ -91,6 +105,21 @@ namespace Gyakorlat06
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            RefreData();
+        }
+
+        private void DateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            RefreData();
+        }
+
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreData();
         }
     }
 }
