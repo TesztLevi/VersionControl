@@ -7,15 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Gyakorlat06.Entities;
 using Gyakorlat06.MnbServiceReference;
 
 namespace Gyakorlat06
 {
     public partial class Form1 : Form
     {
+        BindingList<RateDate> Rates = new BindingList<RateDate>();
+
+
         public Form1()
         {
             InitializeComponent();
+
+            dataGridView1.DataSource = Rates;
+
 
             var mnbService = new MNBArfolyamServiceSoapClient();
 
