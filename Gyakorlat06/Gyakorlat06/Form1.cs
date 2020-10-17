@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using Gyakorlat06.Entities;
 using Gyakorlat06.MnbServiceReference;
 
@@ -23,6 +24,8 @@ namespace Gyakorlat06
 
             dataGridView1.DataSource = Rates;
 
+            
+
 
             var mnbService = new MNBArfolyamServiceSoapClient();
 
@@ -34,13 +37,34 @@ namespace Gyakorlat06
             };
 
             var response = mnbService.GetExchangeRates(request);
+
             var result = response.GetExchangeRatesResult;
 
             //MessageBox.Show(result);
 
+            var xml = new XmlDocument();
 
+            xml.LoadXml(result);
+
+            foreach (XmlElement element in xml.DocumentElement)
+            {
+                var rate = new RateDate();
+                Rates.Add(rate);
+
+                rate.Date= DateTime.Parse(element.GetAttribute("date"));
+
+                var childElement = (XmlElement)element.ChildNodes[0];
+                rate.Currency = childElement.GetAttribute("curr");
+
+                var unit = decimal.Parse(childElement.GetAttribute("unit"));
+                var value = decimal.Parse(childElement.InnerText);
+                if (unit != 0)
+                    rate.Value = value / unit;
+            }
 
         }
+
+       
 
         private void Form1_Load(object sender, EventArgs e)
         {
