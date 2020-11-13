@@ -28,17 +28,19 @@ namespace Gyakorlat08
             }
         }
 
-        private void DisplayNext()
-        {
-            if (_nextToy !=null)
+        
+        
+            private void DisplayNext()
             {
-                Controls.Remove(_nextToy);
+                if (_nextToy != null)
+                    Controls.Remove(_nextToy);
                 _nextToy = Factory.CreateNew();
-                _nextToy.Top = lblnext.Top + lblnext.Height + 20;
-                _nextToy.Left = lblnext.Left;
+                _nextToy.Top = lblNext.Top + lblNext.Height + 20;
+                _nextToy.Left = lblNext.Left;
                 mainPanel.Controls.Add(_nextToy);
             }
-        }
+
+        
 
         public Form1()
         {
