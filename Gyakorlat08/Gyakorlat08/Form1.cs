@@ -7,17 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Gyakorlat08.Abstractions;
 using Gyakorlat08.Entities;
 
 namespace Gyakorlat08
 {
     public partial class Form1 : Form
     {
-        private List<Ball> _balls = new List<Ball>();
+        private List<Toy> _toys = new List<Toy>();
 
-        private BallFactory _factory;
+        private IToyFactory _factory;
 
-        public BallFactory Factory
+        public IToyFactory Factory
         {
             get { return _factory; }
             set { _factory = value; }
@@ -32,34 +33,34 @@ namespace Gyakorlat08
         public Form1()
         {
             InitializeComponent();
-            Factory = new BallFactory();
+            Factory = new CarFactory();
         }
 
         private void CreateTimer_Tick(object sender, EventArgs e)
         {
-            var Ball = Factory.CreateNew();
-            _balls.Add(Ball);
-            Ball.Left = -Ball.Width;
-            mainPanel.Controls.Add(Ball);
+            var Toy = Factory.CreateNew();
+            _toys.Add(Toy);
+            Toy.Left = -Toy.Width;
+            mainPanel.Controls.Add(Toy);
 
         }
 
         private void ConveyorTimer_Tick(object sender, EventArgs e)
         {
             var maxposition = 0;
-            foreach (var ball in _balls)
+            foreach (var toy in _toys)
             {
-                ball.MoveToy();
-                if (ball.Left>maxposition)
+                toy.MoveToy();
+                if (toy.Left>maxposition)
                 {
-                    maxposition = ball.Left;
+                    maxposition = toy.Left;
                 }
             }
             if (maxposition > 1000)
             {
-                var oldestBall = _balls[0];
-                mainPanel.Controls.Remove(oldestBall);
-                _balls.Remove(oldestBall);
+                var oldestToy = _toys[0];
+                mainPanel.Controls.Remove(oldestToy);
+                _toys.Remove(oldestToy);
             }
         }
     }
