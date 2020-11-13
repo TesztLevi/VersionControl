@@ -83,5 +83,16 @@ namespace Gyakorlat08
         {
             Factory = new BallFactory();
         }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+
+            var color = new ColorDialog();
+            color.Color = Color.Aqua;
+            if (color.ShowDialog() != DialogResult.OK)
+                return;
+            button.BackColor = color.Color;
+        }
     }
 }
