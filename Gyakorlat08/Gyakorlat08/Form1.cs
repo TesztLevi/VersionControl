@@ -49,7 +49,7 @@ namespace Gyakorlat08
             var maxposition = 0;
             foreach (var ball in _balls)
             {
-                ball.MoveBall();
+                ball.MoveToy();
                 if (ball.Left>maxposition)
                 {
                     maxposition = ball.Left;
