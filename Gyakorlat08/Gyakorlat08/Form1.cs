@@ -16,19 +16,29 @@ namespace Gyakorlat08
     {
         private List<Toy> _toys = new List<Toy>();
 
+        private Toy _nextToy;
+
         private IToyFactory _factory;
 
         public IToyFactory Factory
         {
             get { return _factory; }
-            set { _factory = value; }
+            set { _factory = value;
+                DisplayNext();
+            }
         }
 
-
-
-
-
-
+        private void DisplayNext()
+        {
+            if (_nextToy !=null)
+            {
+                Controls.Remove(_nextToy);
+                _nextToy = Factory.CreateNew();
+                _nextToy.Top = lblnext.Top + lblnext.Height + 20;
+                _nextToy.Left = lblnext.Left;
+                mainPanel.Controls.Add(_nextToy);
+            }
+        }
 
         public Form1()
         {
@@ -62,6 +72,16 @@ namespace Gyakorlat08
                 mainPanel.Controls.Remove(oldestToy);
                 _toys.Remove(oldestToy);
             }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            Factory = new CarFactory();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            Factory = new BallFactory();
         }
     }
 }
