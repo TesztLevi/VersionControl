@@ -88,11 +88,11 @@ namespace Gyakorlat08
         {
             var button = (Button)sender;
 
-            var color = new ColorDialog();
-            color.Color = Color.Aqua;
-            if (color.ShowDialog() != DialogResult.OK)
+            var colordialog = new ColorDialog();
+            colordialog.Color = Color.Aqua;
+            if (colordialog.ShowDialog() != DialogResult.OK)
                 return;
-            button.BackColor = color.Color;
+            button.BackColor = colordialog.Color;
         }
     }
 }
